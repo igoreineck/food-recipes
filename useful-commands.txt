@@ -1,0 +1,12 @@
+# setup
+-> docker-compose up --build
+-> docker-compose down
+
+# access web or some container:  docker-compose exec <container-name> <command>
+-> ex: docker-compose exec web /bin/bash
+
+# setup db
+-> docker-compose exec web rails db:setup
+
+# migrate db
+-> docker-compose exec web rails db:migrate

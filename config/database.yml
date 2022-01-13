@@ -1,15 +1,21 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: db
-  username: <%= ENV.fetch("POSTGRES_USERNAME") %>
-  password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  port: <%= ENV['DATABASE_PORT'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  username: <%= ENV['POSTGRES_USERNAME'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  pool: <%= ENV['RAILS_MAX_THREADS'] || 5 %>
+  timeout: 5000
 
 development:
   <<: *default
-  database: food_recipes_development
+  database: <%= ENV['DATABASE_DEV'] %>
 
 test:
   <<: *default
-  database: food_recipes_test
+  database: <%= ENV['DATABASE_TEST'] %>
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
